@@ -55,6 +55,42 @@ function App() {
     return newGrid;
   };
 
+  const handleNodeClick = (row, col) => {
+    if (selectedTool === "wall") {
+      setGrid((prevGrid) =>
+        updateNodeState(prevGrid, row, col, "isWall", true)
+      );
+    }
+
+    if (selectedTool === "start") {
+      const startNode = grid.flat().find((node) => node.isStart);
+      if (startNode) {
+        setGrid((prevGrid) =>
+          updateNodeState(
+            prevGrid,
+            startNode.row,
+            startNode.col,
+            "isStart",
+            false
+          )
+        );
+      }
+      setGrid((prevGrid) =>
+        updateNodeState(prevGrid, row, col, "isStart", true)
+      );
+    }
+
+    if (selectedTool === "end") {
+      const endNode = grid.flat().find((node) => node.isEnd);
+      if (endNode) {
+        setGrid((prevGrid) =>
+          updateNodeState(prevGrid, endNode.row, endNode.col, "isEnd", false)
+        );
+      }
+      setGrid((prevGrid) => updateNodeState(prevGrid, row, col, "isEnd", true));
+    }
+  };
+
   return (
     <div className="grid place-items-center p-8 gap-4">
       <Controls
@@ -63,7 +99,7 @@ function App() {
         runAlgorithm={runAlgorithm}
         clearGrid={clearGrid}
       />
-      <Grid grid={grid} />
+      <Grid grid={grid} onClick={handleNodeClick} />
     </div>
   );
 }
