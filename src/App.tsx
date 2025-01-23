@@ -99,7 +99,7 @@ function App() {
         runAlgorithm={runAlgorithm}
         clearGrid={clearGrid}
       />
-      <Grid grid={grid} onClick={handleNodeClick} />
+      <Grid grid={grid} onClick={handleNodeClick} selectedTool={selectedTool} />
     </div>
   );
 }

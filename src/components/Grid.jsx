@@ -1,4 +1,6 @@
-const Node = ({ node, onClick }) => {
+import { useState } from "react";
+
+const Node = ({ node, onClick, onMouseDown, onMouseEnter, onMouseUp }) => {
   const { isStart, isEnd, isWall, isVisited, isPath } = node;
 
   const getNodeClass = () => {
@@ -14,11 +16,29 @@ const Node = ({ node, onClick }) => {
     <div
       className={`w-5 h-5 border border-gray-300 ${getNodeClass()}`}
       onClick={onClick}
+      onMouseDown={onMouseDown}
+      onMouseEnter={onMouseEnter}
+      onMouseUp={onMouseUp}
     />
   );
 };
 
-export const Grid = ({ grid, onClick }) => {
+export const Grid = ({ grid, onClick, selectedTool }) => {
+  const [isMouseDown, setIsMouseDown] = useState(false);
+
+  const handleMouseDown = (row, col) => {
+    if (selectedTool === "wall") {
+      setIsMouseDown(true);
+      onClick(row, col);
+    }
+  };
+
+  const handleMouseEnter = (row, col) => {
+    if (isMouseDown) onClick(row, col);
+  };
+
+  const handleMouseUp = () => setIsMouseDown(false);
+
   return (
     <div className="flex flex-col gap-px">
       {grid.map((row, rowIdx) => (
@@ -31,6 +51,9 @@ export const Grid = ({ grid, onClick }) => {
                 console.log("clicked");
                 onClick(node.row, node.col);
               }}
+              onMouseDown={() => handleMouseDown(node.row, node.col)}
+              onMouseEnter={() => handleMouseEnter(node.row, node.col)}
+              onMouseUp={handleMouseUp}
             />
           ))}
         </div>
