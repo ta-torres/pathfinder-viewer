@@ -12,6 +12,7 @@ const GRID_COLS = 40;
 function App() {
   const [grid, setGrid] = useState(() => createGrid(GRID_ROWS, GRID_COLS));
   const [selectedTool, setSelectedTool] = useState("wall");
+  const [isRunning, setIsRunning] = useState(false);
 
   const runAlgorithm = async () => {
     /* find start and end nodes already set in createGrid 
@@ -20,6 +21,7 @@ function App() {
     for each visited node update the node state
     for each node in the shortest path update the node state
     */
+    setIsRunning(true);
     const startNode = grid.flat().find((node) => node.isStart);
     const endNode = grid.flat().find((node) => node.isEnd);
 
@@ -38,6 +40,7 @@ function App() {
         updateNodeState(prev, node.row, node.col, "isPath", true)
       );
     }
+    setIsRunning(false);
   };
 
   const clearGrid = () => {
@@ -98,6 +101,7 @@ function App() {
         setSelectedTool={setSelectedTool}
         runAlgorithm={runAlgorithm}
         clearGrid={clearGrid}
+        isRunning={isRunning}
       />
       <Grid grid={grid} onClick={handleNodeClick} selectedTool={selectedTool} />
     </div>

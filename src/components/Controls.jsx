@@ -5,6 +5,7 @@ export const Controls = ({
   setSelectedTool,
   runAlgorithm,
   clearGrid,
+  isRunning,
 }) => {
   return (
     <div className="flex gap-4 items-center">
@@ -13,6 +14,7 @@ export const Controls = ({
           selectedTool === "start" && "bg-blue-600"
         }`}
         onClick={() => setSelectedTool("start")}
+        disabled={isRunning}
       >
         Set Start
       </Button>
@@ -21,6 +23,7 @@ export const Controls = ({
           selectedTool === "end" && "bg-blue-600"
         }`}
         onClick={() => setSelectedTool("end")}
+        disabled={isRunning}
       >
         Set End
       </Button>
@@ -29,18 +32,21 @@ export const Controls = ({
           selectedTool === "wall" && "bg-blue-600"
         }`}
         onClick={() => setSelectedTool("wall")}
+        disabled={isRunning}
       >
         Set Wall
       </Button>
       <Button
         className="px-4 py-2 bg-green-500 hover:bg-green-600"
         onClick={runAlgorithm}
+        disabled={isRunning}
       >
-        Run BFS
+        {isRunning ? "Running" : "Run BFS"}
       </Button>
       <Button
         className="px-4 py-2 bg-gray-500 hover:bg-gray-600"
         onClick={clearGrid}
+        disabled={isRunning}
       >
         Clear
       </Button>
