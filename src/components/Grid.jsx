@@ -26,7 +26,8 @@ const Node = ({ node, onClick, onMouseDown, onMouseEnter, onMouseUp }) => {
 export const Grid = ({ grid, onClick, selectedTool }) => {
   const [isMouseDown, setIsMouseDown] = useState(false);
 
-  const handleMouseDown = (row, col) => {
+  const handleMouseDown = (e, row, col) => {
+    e.preventDefault();
     if (selectedTool === "wall") {
       setIsMouseDown(true);
       onClick(row, col);
@@ -51,7 +52,7 @@ export const Grid = ({ grid, onClick, selectedTool }) => {
                 console.log("clicked");
                 onClick(node.row, node.col);
               }}
-              onMouseDown={() => handleMouseDown(node.row, node.col)}
+              onMouseDown={(e) => handleMouseDown(e, node.row, node.col)}
               onMouseEnter={() => handleMouseEnter(node.row, node.col)}
               onMouseUp={handleMouseUp}
             />
