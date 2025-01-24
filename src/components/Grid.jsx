@@ -1,20 +1,24 @@
 import { useState } from "react";
+import "./Grid.css";
 
 const Node = ({ node, onClick, onMouseDown, onMouseEnter, onMouseUp }) => {
   const { isStart, isEnd, isWall, isVisited, isPath } = node;
 
   const getNodeClass = () => {
-    if (isStart) return "bg-green-400";
-    if (isEnd) return "bg-red-400";
-    if (isWall) return "bg-gray-900";
-    if (isPath) return "bg-yellow-400";
-    if (isVisited) return "bg-blue-400";
-    return "bg-gray-100";
+    const baseClasses = "w-5 h-5 border border-gray-300 will-change";
+
+    if (isStart) return `${baseClasses} bg-green-400 smooth-transition`;
+    if (isEnd) return `${baseClasses} bg-red-400 smooth-transition`;
+    if (isWall) return `${baseClasses} bg-gray-900 animate-wall`;
+    if (isPath) return `${baseClasses} bg-yellow-400 animate-path`;
+    if (isVisited)
+      return `${baseClasses} bg-blue-400 animate-visited smooth-transition`;
+    return `${baseClasses} bg-gray-100 will-change smooth-transition`;
   };
 
   return (
     <div
-      className={`w-5 h-5 border border-gray-300 ${getNodeClass()}`}
+      className={getNodeClass()}
       onClick={onClick}
       onMouseDown={onMouseDown}
       onMouseEnter={onMouseEnter}

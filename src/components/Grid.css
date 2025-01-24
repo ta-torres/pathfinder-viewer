@@ -1,0 +1,47 @@
+@keyframes visitAnimation {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pathAnimation {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes wallAnimation {
+  0% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-visited {
+  animation: visitAnimation 0.3s ease-out;
+}
+
+.animate-path {
+  animation: pathAnimation 0.5s ease-out;
+}
+
+.animate-wall {
+  animation: wallAnimation 0.2s ease-in-out;
+}
+
+.smooth-transition {
+  transition: all 0.3s ease-out;
+}
