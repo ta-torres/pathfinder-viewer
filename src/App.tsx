@@ -95,15 +95,31 @@ function App() {
   };
 
   return (
-    <div className="grid place-items-center p-8 gap-4">
-      <Controls
-        selectedTool={selectedTool}
-        setSelectedTool={setSelectedTool}
-        runAlgorithm={runAlgorithm}
-        clearGrid={clearGrid}
-        isRunning={isRunning}
-      />
-      <Grid grid={grid} onClick={handleNodeClick} selectedTool={selectedTool} />
+    <div className="bg-flexoki-light-bg-2 py-8 px-4">
+      <div className="max-w-6xl space-y-8">
+        <header className="text-center">
+          <h1 className="text-3xl font-bold text-gray-900">
+            Pathfinding Visualizer
+          </h1>
+          <p className="text-gray-600">
+            Visualize pathfinding algorithms through an interactive grid
+          </p>
+        </header>
+
+        <Controls
+          selectedTool={selectedTool}
+          setSelectedTool={setSelectedTool}
+          runAlgorithm={runAlgorithm}
+          clearGrid={clearGrid}
+          isRunning={isRunning}
+        />
+
+        <Grid
+          grid={grid}
+          onClick={handleNodeClick}
+          selectedTool={selectedTool}
+        />
+      </div>
     </div>
   );
 }

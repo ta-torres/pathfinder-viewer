@@ -8,48 +8,70 @@ export const Controls = ({
   isRunning,
 }) => {
   return (
-    <div className="flex gap-4 items-center">
-      <Button
-        className={`px-4 py-2 bg-blue-500 hover:bg-blue-600 ${
-          selectedTool === "start" && "bg-blue-600"
-        }`}
-        onClick={() => setSelectedTool("start")}
-        disabled={isRunning}
-      >
-        Set Start
-      </Button>
-      <Button
-        className={`px-4 py-2 bg-blue-500 hover:bg-blue-600 ${
-          selectedTool === "end" && "bg-blue-600"
-        }`}
-        onClick={() => setSelectedTool("end")}
-        disabled={isRunning}
-      >
-        Set End
-      </Button>
-      <Button
-        className={`px-4 py-2 bg-blue-500 hover:bg-blue-600 ${
-          selectedTool === "wall" && "bg-blue-600"
-        }`}
-        onClick={() => setSelectedTool("wall")}
-        disabled={isRunning}
-      >
-        Set Wall
-      </Button>
-      <Button
-        className="px-4 py-2 bg-green-500 hover:bg-green-600"
-        onClick={runAlgorithm}
-        disabled={isRunning}
-      >
-        {isRunning ? "Running" : "Run BFS"}
-      </Button>
-      <Button
-        className="px-4 py-2 bg-gray-500 hover:bg-gray-600"
-        onClick={clearGrid}
-        disabled={isRunning}
-      >
-        Clear
-      </Button>
+    <div className="flex flex-wrap gap-2 items-center justify-center p-4">
+      <div className="flex gap-2 items-center">
+        <Button
+          className={`px-4 py-2 text-sm font-medium transition-all
+            ${
+              selectedTool === "start"
+                ? "bg-indigo-600 text-white hover:bg-indigo-700"
+                : "bg-indigo-100 text-indigo-800 hover:bg-indigo-200"
+            }
+            ${isRunning ? "opacity-50 cursor-not-allowed" : ""}`}
+          onClick={() => setSelectedTool("start")}
+          disabled={isRunning}
+        >
+          Start Node
+        </Button>
+        <span className="text-gray-400">→</span>
+        <Button
+          className={`px-4 py-2 text-sm font-medium transition-all 
+            ${
+              selectedTool === "end"
+                ? "bg-flexoki-red-400 text-white hover:bg-flexoki-red-500"
+                : "bg-flexoki-red-50 text-rose-800 hover:bg-flexoki-red-100"
+            }
+            ${isRunning ? "opacity-50 cursor-not-allowed" : ""}`}
+          onClick={() => setSelectedTool("end")}
+          disabled={isRunning}
+        >
+          End Node
+        </Button>
+        <span className="text-gray-400">→</span>
+        <Button
+          className={`px-4 py-2 text-sm font-medium transition-all
+            ${
+              selectedTool === "wall"
+                ? "bg-flexoki-base-800 text-white hover:bg-flexoki-base-900"
+                : "bg-flexoki-base-50 text-flexoki-dark-tx-3 hover:bg-gray-200"
+            }
+            ${isRunning ? "opacity-50 cursor-not-allowed" : ""}`}
+          onClick={() => setSelectedTool("wall")}
+          disabled={isRunning}
+        >
+          Walls
+        </Button>
+      </div>
+      <span className="text-gray-400">|</span>
+      <div className="flex gap-4 items-center">
+        <Button
+          className="px-4 py-2 bg-emerald-600 text-white text-sm font-medium
+            hover:bg-emerald-700 active:bg-emerald-800 transition-all
+            shadow-md hover:shadow-sm"
+          onClick={runAlgorithm}
+          disabled={isRunning}
+        >
+          {isRunning ? "Running..." : "Run BFS"}
+        </Button>
+        <Button
+          className="px-4 py-2 bg-gray-100 text-flexoki-light-tx text-sm font-medium
+            hover:bg-gray-200 active:bg-gray-300 transition-all"
+          onClick={clearGrid}
+          disabled={isRunning}
+        >
+          Clear
+        </Button>
+      </div>
     </div>
   );
 };

@@ -5,15 +5,16 @@ const Node = ({ node, onClick, onMouseDown, onMouseEnter, onMouseUp }) => {
   const { isStart, isEnd, isWall, isVisited, isPath } = node;
 
   const getNodeClass = () => {
-    const baseClasses = "w-5 h-5 border border-gray-300 will-change";
+    const baseClasses =
+      "w-5 h-5 border border-flexoki-base-200 will-change-auto";
 
-    if (isStart) return `${baseClasses} bg-green-400 smooth-transition`;
-    if (isEnd) return `${baseClasses} bg-red-400 smooth-transition`;
-    if (isWall) return `${baseClasses} bg-gray-900 animate-wall`;
-    if (isPath) return `${baseClasses} bg-yellow-400 animate-path`;
+    if (isStart) return `${baseClasses} bg-green-600 smooth-transition`;
+    if (isEnd) return `${baseClasses} bg-flexoki-red-300 smooth-transition`;
+    if (isWall) return `${baseClasses} bg-flexoki-base-900 animate-wall`;
+    if (isPath) return `${baseClasses} bg-flexoki-yellow-300 animate-path`;
     if (isVisited)
-      return `${baseClasses} bg-blue-400 animate-visited smooth-transition`;
-    return `${baseClasses} bg-gray-100 will-change smooth-transition`;
+      return `${baseClasses} bg-flexoki-blue-300 animate-visited smooth-transition`;
+    return `${baseClasses} bg-gray-100 hover:bg-gray-300 will-change-auto smooth-transition`;
   };
 
   return (
@@ -45,24 +46,23 @@ export const Grid = ({ grid, onClick, selectedTool }) => {
   const handleMouseUp = () => setIsMouseDown(false);
 
   return (
-    <div className="flex flex-col gap-px">
-      {grid.map((row, rowIdx) => (
-        <div key={rowIdx} className="flex gap-px">
-          {row.map((node, nodeIdx) => (
-            <Node
-              key={`${rowIdx}-${nodeIdx}`}
-              node={node}
-              onClick={() => {
-                console.log("clicked");
-                onClick(node.row, node.col);
-              }}
-              onMouseDown={(e) => handleMouseDown(e, node.row, node.col)}
-              onMouseEnter={() => handleMouseEnter(node.row, node.col)}
-              onMouseUp={handleMouseUp}
-            />
-          ))}
-        </div>
-      ))}
+    <div className="bg-flexoki-base-50 border border-flexoki-base-200">
+      <div className="flex flex-col gap-[1px]">
+        {grid.map((row, rowIdx) => (
+          <div key={rowIdx} className="flex gap-[1px]">
+            {row.map((node, nodeIdx) => (
+              <Node
+                key={`${rowIdx}-${nodeIdx}`}
+                node={node}
+                onClick={() => onClick(node.row, node.col)}
+                onMouseDown={(e) => handleMouseDown(e, node.row, node.col)}
+                onMouseEnter={() => handleMouseEnter(node.row, node.col)}
+                onMouseUp={handleMouseUp}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
