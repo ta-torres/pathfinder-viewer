@@ -5,6 +5,7 @@ import { Controls } from "./components/Controls";
 import { Grid } from "./components/Grid";
 import { createGrid } from "./utils/createGrid";
 import { bfs } from "./utils/bfs";
+import { dfs } from "./utils/dfs";
 
 const GRID_ROWS = 20;
 const GRID_COLS = 40;
@@ -16,6 +17,7 @@ function App() {
 
   const algorithms = {
     bfs,
+    dfs,
   };
 
   const runAlgorithm = async (algorithmName) => {

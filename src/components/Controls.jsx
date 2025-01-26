@@ -78,6 +78,9 @@ export const Controls = ({
             >
               BFS (Breadth First Search)
             </DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => runAlgorithm("dfs")}>
+              DFS (Depth First Search)
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         <Button
