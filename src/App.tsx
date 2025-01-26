@@ -14,18 +14,25 @@ function App() {
   const [selectedTool, setSelectedTool] = useState("wall");
   const [isRunning, setIsRunning] = useState(false);
 
-  const runAlgorithm = async () => {
+  const algorithms = {
+    bfs,
+  };
+
+  const runAlgorithm = async (algorithmName) => {
     /* find start and end nodes already set in createGrid 
     pass grid from state and nodes to the algorithm
     get visited nodes and shortest path from the algorithm
     for each visited node update the node state
     for each node in the shortest path update the node state
     */
+    const algorithm = algorithms[algorithmName];
+    if (!algorithm) throw new Error(`Algorithm ${algorithmName} not found`);
+
     setIsRunning(true);
     const startNode = grid.flat().find((node) => node.isStart);
     const endNode = grid.flat().find((node) => node.isEnd);
 
-    const { visitedNodes, shortestPath } = bfs(grid, startNode, endNode);
+    const { visitedNodes, shortestPath } = algorithm(grid, startNode, endNode);
 
     for (const node of visitedNodes) {
       await new Promise((resolve) => setTimeout(resolve, 20));

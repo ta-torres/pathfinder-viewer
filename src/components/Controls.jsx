@@ -1,4 +1,10 @@
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 
 export const Controls = ({
   selectedTool,
@@ -54,15 +60,26 @@ export const Controls = ({
       </div>
       <span className="text-gray-400">|</span>
       <div className="flex gap-4 items-center">
-        <Button
-          className="px-4 py-2 bg-emerald-600 text-white text-sm font-medium
-            hover:bg-emerald-700 active:bg-emerald-800 transition-all
-            shadow-md hover:shadow-sm"
-          onClick={runAlgorithm}
-          disabled={isRunning}
-        >
-          {isRunning ? "Running..." : "Run BFS"}
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              className="px-4 py-2 bg-emerald-600 text-white text-sm font-medium
+                hover:bg-emerald-700 active:bg-emerald-800 transition-all
+                shadow-md hover:shadow-sm"
+              disabled={isRunning}
+            >
+              {isRunning ? "Running..." : "Run Algorithm"}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem
+              onSelect={() => runAlgorithm("bfs")}
+              disabled={isRunning}
+            >
+              BFS (Breadth First Search)
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <Button
           className="px-4 py-2 bg-gray-100 text-flexoki-light-tx text-sm font-medium
             hover:bg-gray-200 active:bg-gray-300 transition-all"
