@@ -68,7 +68,11 @@ function App() {
   };
 
   const handleNodeClick = (row, col) => {
-    if (selectedTool === "wall") {
+    if (
+      selectedTool === "wall" &&
+      !grid[row][col].isStart &&
+      !grid[row][col].isEnd
+    ) {
       setGrid((prevGrid) =>
         updateNodeState(prevGrid, row, col, "isWall", true)
       );
