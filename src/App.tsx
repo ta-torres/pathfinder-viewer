@@ -6,6 +6,7 @@ import { Grid } from "./components/Grid";
 import { createGrid } from "./utils/createGrid";
 import { bfs } from "./utils/bfs";
 import { dfs } from "./utils/dfs";
+import { dijkstra } from "./utils/dijkstra";
 
 const GRID_ROWS = 20;
 const GRID_COLS = 40;
@@ -18,6 +19,7 @@ function App() {
   const algorithms = {
     bfs,
     dfs,
+    dijkstra,
   };
 
   const runAlgorithm = async (algorithmName) => {
@@ -79,6 +81,10 @@ function App() {
     ) {
       setGrid((prevGrid) =>
         updateNodeState(prevGrid, row, col, { isWall: true, weight: Infinity })
+      );
+    } else if (selectedTool === "forest") {
+      setGrid((prevGrid) =>
+        updateNodeState(prevGrid, row, col, { isWall: false, weight: 5 })
       );
     }
 
