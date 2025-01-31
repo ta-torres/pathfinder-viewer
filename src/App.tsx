@@ -39,14 +39,18 @@ function App() {
     for (const node of visitedNodes) {
       await new Promise((resolve) => setTimeout(resolve, 20));
       setGrid((prev) =>
-        updateNodeState(prev, node.row, node.col, "isVisited", true)
+        updateNodeState(prev, node.row, node.col, {
+          isVisited: true,
+        })
       );
     }
 
     for (const node of shortestPath) {
       await new Promise((resolve) => setTimeout(resolve, 50));
       setGrid((prev) =>
-        updateNodeState(prev, node.row, node.col, "isPath", true)
+        updateNodeState(prev, node.row, node.col, {
+          isPath: true,
+        })
       );
     }
     setIsRunning(false);
@@ -56,14 +60,14 @@ function App() {
     setGrid(createGrid(GRID_ROWS, GRID_COLS));
   };
 
-  const updateNodeState = (prevGrid, row, col, prop, value) => {
+  const updateNodeState = (prevGrid, row, col, objProps) => {
     /* 
     take the grid from the previous state and make a copy
     update only the node at a given row and column, 
     take the node object and only overwrite the prop: value
     */
     const newGrid = [...prevGrid];
-    newGrid[row][col] = { ...newGrid[row][col], [prop]: value };
+    newGrid[row][col] = { ...newGrid[row][col], ...objProps };
     return newGrid;
   };
 
@@ -74,7 +78,7 @@ function App() {
       !grid[row][col].isEnd
     ) {
       setGrid((prevGrid) =>
-        updateNodeState(prevGrid, row, col, "isWall", true)
+        updateNodeState(prevGrid, row, col, { isWall: true, weight: Infinity })
       );
     }
 
@@ -82,17 +86,13 @@ function App() {
       const startNode = grid.flat().find((node) => node.isStart);
       if (startNode) {
         setGrid((prevGrid) =>
-          updateNodeState(
-            prevGrid,
-            startNode.row,
-            startNode.col,
-            "isStart",
-            false
-          )
+          updateNodeState(prevGrid, startNode.row, startNode.col, {
+            isStart: false,
+          })
         );
       }
       setGrid((prevGrid) =>
-        updateNodeState(prevGrid, row, col, "isStart", true)
+        updateNodeState(prevGrid, row, col, { isStart: true })
       );
     }
 
@@ -100,10 +100,14 @@ function App() {
       const endNode = grid.flat().find((node) => node.isEnd);
       if (endNode) {
         setGrid((prevGrid) =>
-          updateNodeState(prevGrid, endNode.row, endNode.col, "isEnd", false)
+          updateNodeState(prevGrid, endNode.row, endNode.col, {
+            isEnd: false,
+          })
         );
       }
-      setGrid((prevGrid) => updateNodeState(prevGrid, row, col, "isEnd", true));
+      setGrid((prevGrid) =>
+        updateNodeState(prevGrid, row, col, { isEnd: true })
+      );
     }
   };
 

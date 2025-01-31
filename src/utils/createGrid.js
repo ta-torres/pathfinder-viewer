@@ -11,6 +11,7 @@ export const createGrid = (rows, cols) => {
         isWall: false,
         isVisited: false,
         isPath: false,
+        weight: 1,
       });
     }
     grid.push(currentRow);
