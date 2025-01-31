@@ -57,6 +57,20 @@ export const Controls = ({
         >
           Walls
         </Button>
+        <span className="text-gray-400">→</span>
+        <Button
+          className={`px-4 py-2 text-sm font-medium transition-all
+      ${
+        selectedTool === "forest"
+          ? "bg-flexoki-green-800 text-white hover:bg-flexoki-green-900"
+          : "bg-flexoki-green-100 text-flexoki-green-800 hover:bg-flexoki-green-200"
+      }
+      ${isRunning ? "opacity-50 cursor-not-allowed" : ""}`}
+          onClick={() => setSelectedTool("forest")}
+          disabled={isRunning}
+        >
+          Forest
+        </Button>
       </div>
       <span className="text-gray-400">|</span>
       <div className="flex gap-4 items-center">
@@ -80,6 +94,9 @@ export const Controls = ({
             </DropdownMenuItem>
             <DropdownMenuItem onSelect={() => runAlgorithm("dfs")}>
               DFS (Depth First Search)
+            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => runAlgorithm("dijkstra")}>
+              Dijkstra's
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

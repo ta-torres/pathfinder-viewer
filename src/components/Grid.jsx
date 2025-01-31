@@ -14,6 +14,9 @@ const Node = ({ node, onClick, onMouseDown, onMouseEnter, onMouseUp }) => {
     if (isPath) return `${baseClasses} bg-flexoki-yellow-300 animate-path`;
     if (isVisited)
       return `${baseClasses} bg-flexoki-blue-300 animate-visited smooth-transition`;
+    if (node.weight === 5)
+      return `${baseClasses} bg-flexoki-green-600 animate-forest`;
+
     return `${baseClasses} bg-gray-100 hover:bg-gray-300 will-change-auto smooth-transition`;
   };
 
