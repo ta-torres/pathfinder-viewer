@@ -29,6 +29,7 @@ function App() {
     for each visited node update the node state
     for each node in the shortest path update the node state
     */
+    clearPaths();
     const algorithm = algorithms[algorithmName];
     if (!algorithm) throw new Error(`Algorithm ${algorithmName} not found`);
 
@@ -58,6 +59,17 @@ function App() {
     setIsRunning(false);
   };
 
+  const clearPaths = () => {
+    setGrid((grid) =>
+      grid.map((row) =>
+        row.map((node) => ({
+          ...node,
+          isVisited: false,
+          isPath: false,
+        }))
+      )
+    );
+  };
   const clearGrid = () => {
     setGrid(createGrid(GRID_ROWS, GRID_COLS));
   };
