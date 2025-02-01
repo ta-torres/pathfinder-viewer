@@ -129,6 +129,26 @@ function App() {
     }
   };
 
+  const generateRandomMaze = () => {
+    setGrid((prevGrid) =>
+      prevGrid.map((row) =>
+        row.map((node) => {
+          if (node.isStart || node.isEnd) return node;
+
+          const isWall = Math.random() < 0.3;
+
+          return {
+            ...node,
+            isWall,
+            weight: isWall ? Infinity : 1,
+            isVisited: false,
+            isPath: false,
+          };
+        })
+      )
+    );
+  };
+
   return (
     <div className="bg-flexoki-light-bg-2 py-8 px-4">
       <div className="max-w-6xl space-y-8">
@@ -146,6 +166,7 @@ function App() {
           setSelectedTool={setSelectedTool}
           runAlgorithm={runAlgorithm}
           clearGrid={clearGrid}
+          generateRandomMaze={generateRandomMaze}
           isRunning={isRunning}
         />
 

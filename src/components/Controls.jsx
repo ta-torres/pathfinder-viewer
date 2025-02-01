@@ -11,6 +11,7 @@ export const Controls = ({
   setSelectedTool,
   runAlgorithm,
   clearGrid,
+  generateRandomMaze,
   isRunning,
 }) => {
   return (
@@ -107,6 +108,22 @@ export const Controls = ({
           disabled={isRunning}
         >
           Clear
+        </Button>
+        <Button
+          className={`px-4 py-2 text-sm font-medium transition-all
+            ${
+              selectedTool === "maze"
+                ? "bg-flexoki-base-800 text-white hover:bg-flexoki-base-900"
+                : "bg-flexoki-base-50 text-flexoki-dark-tx-3 hover:bg-gray-200"
+            }
+            ${isRunning ? "opacity-50 cursor-not-allowed" : ""}`}
+          onClick={() => {
+            setSelectedTool("maze");
+            generateRandomMaze();
+          }}
+          disabled={isRunning}
+        >
+          Random Maze
         </Button>
       </div>
     </div>

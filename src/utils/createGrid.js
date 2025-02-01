@@ -20,13 +20,5 @@ export const createGrid = (rows, cols) => {
   grid[5][5].isStart = true;
   grid[5][27].isEnd = true;
 
-  for (let i = 0; i < 7; i++) {
-    grid[4][i].isWall = true;
-    grid[4 + i][7].isWall = true;
-  }
-  for (let i = 0; i < 15; i++) {
-    grid[i][25].isWall = true;
-  }
-
   return grid;
 };
