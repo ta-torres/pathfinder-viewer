@@ -1,6 +1,7 @@
 //@ts-nocheck
 import "./App.css";
 import { useState } from "react";
+import { NodeType, Algorithm, Tool } from "./types";
 import { Controls } from "./components/Controls";
 import { Grid } from "./components/Grid";
 import { createGrid } from "./utils/createGrid";
@@ -12,9 +13,11 @@ const GRID_ROWS = 20;
 const GRID_COLS = 40;
 
 function App() {
-  const [grid, setGrid] = useState(() => createGrid(GRID_ROWS, GRID_COLS));
-  const [selectedTool, setSelectedTool] = useState("wall");
-  const [isRunning, setIsRunning] = useState(false);
+  const [grid, setGrid] = useState<NodeType[][]>(() =>
+    createGrid(GRID_ROWS, GRID_COLS)
+  );
+  const [selectedTool, setSelectedTool] = useState<Tool>("wall");
+  const [isRunning, setIsRunning] = useState<boolean>(false);
 
   const algorithms = {
     bfs,
@@ -22,7 +25,7 @@ function App() {
     dijkstra,
   };
 
-  const runAlgorithm = async (algorithmName) => {
+  const runAlgorithm = async (algorithmName: Algorithm) => {
     /* find start and end nodes already set in createGrid 
     pass grid from state and nodes to the algorithm
     get visited nodes and shortest path from the algorithm
@@ -74,7 +77,12 @@ function App() {
     setGrid(createGrid(GRID_ROWS, GRID_COLS));
   };
 
-  const updateNodeState = (prevGrid, row, col, objProps) => {
+  const updateNodeState = (
+    prevGrid: NodeType[][],
+    row: number,
+    col: number,
+    objProps: object
+  ) => {
     /* 
     take the grid from the previous state and make a copy
     update only the node at a given row and column, 
