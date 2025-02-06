@@ -1,4 +1,10 @@
-export const dijkstra = (grid, startNode, endNode) => {
+import { NodeType } from "../types";
+
+export const dijkstra = (
+  grid: NodeType[][],
+  startNode: NodeType,
+  endNode: NodeType
+) => {
   const visitedNodes = [];
   const priorityQueue = [];
   const prevNodes = new Map();
@@ -8,7 +14,7 @@ export const dijkstra = (grid, startNode, endNode) => {
   grid.forEach((row) =>
     row.forEach((node) => {
       const key = `${node.row}-${node.col}`;
-      distances[key] = node === startNode ? 0 : Infinity;
+      distances.set(key, node === startNode ? 0 : Infinity);
     })
   );
 
@@ -17,9 +23,10 @@ export const dijkstra = (grid, startNode, endNode) => {
   while (priorityQueue.length > 0) {
     // unlike a queue in BFS, priority queues have to be sorted to find the shortest distance. I could also use a min heap
     priorityQueue.sort(
-      (a, b) => distances[`${a.row}-${a.col}`] - distances[`${b.row}-${b.col}`]
+      (a, b) =>
+        distances.get(`${a.row}-${a.col}`) - distances.get(`${b.row}-${b.col}`)
     );
-    const currentNode = priorityQueue.shift();
+    const currentNode = priorityQueue.shift()!; // non-null assertion, queue is never empty
 
     if (currentNode.isWall) continue; // skips calculating distance
     // this isn't necessary?
@@ -30,14 +37,15 @@ export const dijkstra = (grid, startNode, endNode) => {
 
     const neighbors = getNeighbors(grid, currentNode);
     for (const neighbor of neighbors) {
-      const currentDistance =
-        distances[`${currentNode.row}-${currentNode.col}`];
+      const currentDistance = distances.get(
+        `${currentNode.row}-${currentNode.col}`
+      );
       const neighborKey = `${neighbor.row}-${neighbor.col}`;
       const newDistance = currentDistance + neighbor.weight; // distance from start node to neighbor
 
       // edge relaxation: check if path through current node to the neighbor is shorter
-      if (newDistance < distances[neighborKey]) {
-        distances[neighborKey] = newDistance; // set a new best path
+      if (newDistance < distances.get(neighborKey)) {
+        distances.set(neighborKey, newDistance); // set a new best path
         prevNodes.set(neighborKey, currentNode);
         priorityQueue.push(neighbor); // add shortest neighbor to queue
       }
@@ -48,7 +56,7 @@ export const dijkstra = (grid, startNode, endNode) => {
   return { visitedNodes, shortestPath };
 };
 
-const getNeighbors = (grid, node) => {
+const getNeighbors = (grid: NodeType[][], node: NodeType) => {
   const neighbors = [];
   const { row, col } = node;
   const directions = [
@@ -74,13 +82,18 @@ const getNeighbors = (grid, node) => {
   return neighbors;
 };
 
-const reconstructPath = (prevNodes, endNode) => {
+const reconstructPath = (
+  prevNodes: Map<string, NodeType>,
+  endNode: NodeType
+) => {
   const path = [];
   let currentNode = endNode;
 
   while (currentNode) {
     path.unshift(currentNode);
-    currentNode = prevNodes.get(`${currentNode.row}-${currentNode.col}`);
+    currentNode = prevNodes.get(
+      `${currentNode.row}-${currentNode.col}`
+    ) as NodeType;
   }
 
   return path.length > 1 ? path : [];

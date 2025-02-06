@@ -1,13 +1,19 @@
-export const dfs = (grid, startNode, endNode) => {
+import { NodeType } from "../types";
+
+export const bfs = (
+  grid: NodeType[][],
+  startNode: NodeType,
+  endNode: NodeType
+) => {
   const visitedNodes = [];
-  const stack = [];
+  const queue = [];
   const prevNodes = new Map();
 
-  stack.push(startNode);
+  queue.push(startNode);
   prevNodes.set(`${startNode.row}-${startNode.col}`, null);
 
-  while (stack.length > 0) {
-    const currentNode = stack.pop();
+  while (queue.length > 0) {
+    const currentNode = queue.shift()!; // non-null assertion, queue is never empty
 
     if (currentNode === endNode) break;
 
@@ -18,7 +24,7 @@ export const dfs = (grid, startNode, endNode) => {
       const key = `${neighbor.row}-${neighbor.col}`;
       if (!prevNodes.has(key)) {
         prevNodes.set(key, currentNode);
-        stack.push(neighbor);
+        queue.push(neighbor);
       }
     }
   }
@@ -27,7 +33,7 @@ export const dfs = (grid, startNode, endNode) => {
   return { visitedNodes, shortestPath };
 };
 
-const getNeighbors = (grid, node) => {
+const getNeighbors = (grid: NodeType[][], node: NodeType) => {
   const neighbors = [];
   const { row, col } = node;
   const directions = [
@@ -53,13 +59,18 @@ const getNeighbors = (grid, node) => {
   return neighbors;
 };
 
-const reconstructPath = (prevNodes, endNode) => {
+const reconstructPath = (
+  prevNodes: Map<string, NodeType>,
+  endNode: NodeType
+) => {
   const path = [];
   let currentNode = endNode;
 
   while (currentNode) {
     path.unshift(currentNode);
-    currentNode = prevNodes.get(`${currentNode.row}-${currentNode.col}`);
+    currentNode = prevNodes.get(
+      `${currentNode.row}-${currentNode.col}`
+    ) as NodeType;
   }
 
   return path.length > 1 ? path : [];
