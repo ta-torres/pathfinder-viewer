@@ -103,7 +103,12 @@ function App() {
       );
     } else if (selectedTool === "forest") {
       setGrid((prevGrid) =>
-        updateNodeState(prevGrid, row, col, { isWall: false, weight: 5 })
+        updateNodeState(prevGrid, row, col, {
+          isWall: false,
+          weight: 5,
+          isVisited: false,
+          isPath: false,
+        })
       );
     }
 
