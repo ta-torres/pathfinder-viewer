@@ -1,7 +1,28 @@
 import { useState } from "react";
 import "./Grid.css";
+import { NodeType, Tool } from "../types";
 
-const Node = ({ node, onClick, onMouseDown, onMouseEnter, onMouseUp }) => {
+interface GridProps {
+  grid: NodeType[][];
+  onClick: (row: number, col: number) => void;
+  selectedTool: Tool;
+}
+
+interface NodeProps {
+  node: NodeType;
+  onClick: () => void;
+  onMouseDown: (e: React.MouseEvent) => void;
+  onMouseEnter: () => void;
+  onMouseUp: () => void;
+}
+
+const Node = ({
+  node,
+  onClick,
+  onMouseDown,
+  onMouseEnter,
+  onMouseUp,
+}: NodeProps) => {
   const { isStart, isEnd, isWall, isVisited, isPath } = node;
 
   const getNodeClass = () => {
@@ -31,10 +52,10 @@ const Node = ({ node, onClick, onMouseDown, onMouseEnter, onMouseUp }) => {
   );
 };
 
-export const Grid = ({ grid, onClick, selectedTool }) => {
+export const Grid = ({ grid, onClick, selectedTool }: GridProps) => {
   const [isMouseDown, setIsMouseDown] = useState(false);
 
-  const handleMouseDown = (e, row, col) => {
+  const handleMouseDown = (e: React.MouseEvent, row: number, col: number) => {
     e.preventDefault();
     if (selectedTool === "wall") {
       setIsMouseDown(true);
@@ -42,7 +63,7 @@ export const Grid = ({ grid, onClick, selectedTool }) => {
     }
   };
 
-  const handleMouseEnter = (row, col) => {
+  const handleMouseEnter = (row: number, col: number) => {
     if (isMouseDown) onClick(row, col);
   };
 
