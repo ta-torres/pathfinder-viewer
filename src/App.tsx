@@ -1,4 +1,3 @@
-//@ts-nocheck
 import "./App.css";
 import { useState } from "react";
 import { NodeType, Algorithm, Tool } from "./types";
@@ -37,8 +36,8 @@ function App() {
     if (!algorithm) throw new Error(`Algorithm ${algorithmName} not found`);
 
     setIsRunning(true);
-    const startNode = grid.flat().find((node) => node.isStart);
-    const endNode = grid.flat().find((node) => node.isEnd);
+    const startNode = grid.flat().find((node) => node.isStart) as NodeType;
+    const endNode = grid.flat().find((node) => node.isEnd) as NodeType;
 
     const { visitedNodes, shortestPath } = algorithm(grid, startNode, endNode);
 
@@ -93,7 +92,7 @@ function App() {
     return newGrid;
   };
 
-  const handleNodeClick = (row, col) => {
+  const handleNodeClick = (row: number, col: number) => {
     if (
       selectedTool === "wall" &&
       !grid[row][col].isStart &&
