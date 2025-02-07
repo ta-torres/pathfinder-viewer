@@ -5,6 +5,16 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import { Algorithm, Tool } from "@/types";
+
+interface ControlsProps {
+  selectedTool: string;
+  setSelectedTool: (tool: Tool) => void;
+  runAlgorithm: (algorithmName: Algorithm) => void;
+  clearGrid: () => void;
+  generateRandomMaze: () => void;
+  isRunning: boolean;
+}
 
 export const Controls = ({
   selectedTool,
@@ -13,7 +23,7 @@ export const Controls = ({
   clearGrid,
   generateRandomMaze,
   isRunning,
-}) => {
+}: ControlsProps) => {
   return (
     <div className="flex flex-wrap gap-2 items-center justify-center p-4">
       <div className="flex gap-2 items-center">
