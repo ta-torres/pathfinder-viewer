@@ -41,14 +41,27 @@ function App() {
 
     const { visitedNodes, shortestPath } = algorithm(grid, startNode, endNode);
 
-    for (const node of visitedNodes) {
-      await new Promise((resolve) => setTimeout(resolve, 20));
-      setGrid((prev) =>
-        updateNodeState(prev, node.row, node.col, {
-          isVisited: true,
-        })
-      );
+    const ANIMATION_SPEED = 50;
+    const BATCH_SIZE = 4;
+
+    for (let i = 0; i < visitedNodes.length; i += BATCH_SIZE) {
+      const batch = visitedNodes.slice(i, i + BATCH_SIZE);
+      // update the grid state for the batch
+      setGrid((prev) => {
+        const newGrid = [...prev];
+        batch.forEach((node) => {
+          updateNodeState(newGrid, node.row, node.col, {
+            isVisited: true,
+          });
+        });
+        return newGrid;
+      });
+      // wait for the batch to be animated
+      await new Promise((resolve) => setTimeout(resolve, ANIMATION_SPEED));
     }
+
+    // wait for the shortest path to be animated
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
     for (const node of shortestPath) {
       await new Promise((resolve) => setTimeout(resolve, 50));
