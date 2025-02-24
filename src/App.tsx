@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState } from "react";
-import { NodeType, Algorithm, Tool } from "./types";
+import { NodeType, Algorithm, Tool, Speed } from "./types";
 import { Controls } from "./components/Controls";
 import { Grid } from "./components/Grid";
 import { createGrid } from "./utils/createGrid";
@@ -10,6 +10,11 @@ import { dijkstra } from "./utils/dijkstra";
 
 const GRID_ROWS = 20;
 const GRID_COLS = 40;
+const ANIMATION_SPEEDS = {
+  slow: 100,
+  normal: 50,
+  fast: 10,
+} as const;
 
 function App() {
   const [grid, setGrid] = useState<NodeType[][]>(() =>
@@ -17,6 +22,7 @@ function App() {
   );
   const [selectedTool, setSelectedTool] = useState<Tool>("wall");
   const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [speed, setSpeed] = useState<Speed>("normal");
 
   const algorithms = {
     bfs,
@@ -41,7 +47,7 @@ function App() {
 
     const { visitedNodes, shortestPath } = algorithm(grid, startNode, endNode);
 
-    const ANIMATION_SPEED = 50;
+    const ANIMATION_SPEED = ANIMATION_SPEEDS[speed];
     const BATCH_SIZE = 4;
 
     for (let i = 0; i < visitedNodes.length; i += BATCH_SIZE) {
@@ -193,6 +199,8 @@ function App() {
           clearGrid={clearGrid}
           generateRandomMaze={generateRandomMaze}
           isRunning={isRunning}
+          speed={speed}
+          setSpeed={setSpeed}
         />
 
         <Grid

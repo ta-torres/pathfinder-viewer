@@ -5,7 +5,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { Algorithm, Tool } from "@/types";
+import { Algorithm, Tool, Speed } from "@/types";
 
 interface ControlsProps {
   selectedTool: string;
@@ -14,6 +14,8 @@ interface ControlsProps {
   clearGrid: () => void;
   generateRandomMaze: () => void;
   isRunning: boolean;
+  speed: Speed;
+  setSpeed: (speed: Speed) => void;
 }
 
 export const Controls = ({
@@ -23,6 +25,8 @@ export const Controls = ({
   clearGrid,
   generateRandomMaze,
   isRunning,
+  speed,
+  setSpeed,
 }: ControlsProps) => {
   return (
     <div className="flex flex-wrap gap-2 items-center justify-center p-4">
@@ -135,6 +139,31 @@ export const Controls = ({
         >
           Random Maze
         </Button>
+      </div>
+      <span className="text-gray-400">|</span>
+      <div className="flex gap-4 items-center">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              className="px-4 py-2 bg-blue-600 text-white text-sm font-medium
+                hover:bg-blue-700 active:bg-blue-800 transition-all"
+              disabled={isRunning}
+            >
+              Speed: {speed.charAt(0).toUpperCase() + speed.slice(1)}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onSelect={() => setSpeed("slow")}>
+              Slow
+            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => setSpeed("normal")}>
+              Normal
+            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => setSpeed("fast")}>
+              Fast
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );

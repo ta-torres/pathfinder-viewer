@@ -11,3 +11,4 @@ export type NodeType = {
 
 export type Algorithm = "bfs" | "dfs" | "dijkstra";
 export type Tool = "wall" | "start" | "end" | "forest" | "maze";
+export type Speed = "slow" | "normal" | "fast";
