@@ -94,7 +94,7 @@ export const Controls = ({
             <Button
               className="px-4 py-2 bg-emerald-600 text-white text-sm font-medium
                 hover:bg-emerald-700 active:bg-emerald-800 transition-all
-                shadow-md hover:shadow-sm"
+                shadow-md hover:shadow-xs"
               disabled={isRunning}
             >
               {isRunning ? "Running..." : "Run Algorithm"}
@@ -112,6 +112,9 @@ export const Controls = ({
             </DropdownMenuItem>
             <DropdownMenuItem onSelect={() => runAlgorithm("dijkstra")}>
               Dijkstra's
+            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => runAlgorithm("aStar")}>
+              A*
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -71,9 +71,9 @@ export const Grid = ({ grid, onClick, selectedTool }: GridProps) => {
 
   return (
     <div className="bg-flexoki-base-50 border border-flexoki-base-200">
-      <div className="flex flex-col gap-[1px]">
+      <div className="flex flex-col gap-px">
         {grid.map((row, rowIdx) => (
-          <div key={rowIdx} className="flex gap-[1px]">
+          <div key={rowIdx} className="flex gap-px">
             {row.map((node, nodeIdx) => (
               <Node
                 key={`${rowIdx}-${nodeIdx}`}
