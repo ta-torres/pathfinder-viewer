@@ -112,6 +112,7 @@ function App() {
   };
 
   const handleNodeClick = (row: number, col: number) => {
+    if (isRunning) return;
     if (
       selectedTool === "wall" &&
       !grid[row][col].isStart &&
