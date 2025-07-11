@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Grid.css";
 import { NodeType, Tool } from "../types";
+import { getGridSize, getCellSize } from "@/utils/gridSize";
 
 interface GridProps {
   grid: NodeType[][];
@@ -24,10 +25,10 @@ const Node = ({
   onMouseUp,
 }: NodeProps) => {
   const { isStart, isEnd, isWall, isVisited, isPath } = node;
+  const { width, height } = getCellSize();
 
   const getNodeClass = () => {
-    const baseClasses =
-      "w-5 h-5 border border-flexoki-base-200 will-change-auto";
+    const baseClasses = "border border-flexoki-base-200 will-change-auto";
 
     if (isStart) return `${baseClasses} bg-green-600 smooth-transition`;
     if (isEnd) return `${baseClasses} bg-flexoki-red-300 smooth-transition`;
@@ -44,6 +45,7 @@ const Node = ({
   return (
     <div
       className={getNodeClass()}
+      style={{ width, height }}
       onClick={onClick}
       onMouseDown={onMouseDown}
       onMouseEnter={onMouseEnter}
@@ -69,23 +71,30 @@ export const Grid = ({ grid, onClick, selectedTool }: GridProps) => {
 
   const handleMouseUp = () => setIsMouseDown(false);
 
+  const { rows, cols } = getGridSize();
+  const { width, height } = getCellSize();
+
   return (
-    <div className="bg-flexoki-base-50 border border-flexoki-base-200">
-      <div className="flex flex-col gap-px">
-        {grid.map((row, rowIdx) => (
-          <div key={rowIdx} className="flex gap-px">
-            {row.map((node, nodeIdx) => (
-              <Node
-                key={`${rowIdx}-${nodeIdx}`}
-                node={node}
-                onClick={() => onClick(node.row, node.col)}
-                onMouseDown={(e) => handleMouseDown(e, node.row, node.col)}
-                onMouseEnter={() => handleMouseEnter(node.row, node.col)}
-                onMouseUp={handleMouseUp}
-              />
-            ))}
-          </div>
-        ))}
+    <div className="grid place-items-center">
+      <div className="bg-flexoki-base-50 border border-flexoki-base-200">
+        <div
+          className="grid items-center justify-center"
+          style={{
+            gridTemplateColumns: `repeat(${cols}, ${width}px)`,
+            gridTemplateRows: `repeat(${rows}, ${height}px)`,
+          }}
+        >
+          {grid.flat().map((node) => (
+            <Node
+              key={`${node.row}-${node.col}`}
+              node={node}
+              onClick={() => onClick(node.row, node.col)}
+              onMouseDown={(e) => handleMouseDown(e, node.row, node.col)}
+              onMouseEnter={() => handleMouseEnter(node.row, node.col)}
+              onMouseUp={handleMouseUp}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
