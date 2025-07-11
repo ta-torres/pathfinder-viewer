@@ -3,13 +3,12 @@ import { useState } from "react";
 import { NodeType, Algorithm, Tool, Speed } from "./types";
 import { Controls } from "./components/Controls";
 import { Grid } from "./components/Grid";
+import { getGridSize } from "./utils/gridSize";
 import { createGrid } from "./utils/createGrid";
 import { bfs } from "./utils/bfs";
 import { dfs } from "./utils/dfs";
 import { dijkstra } from "./utils/dijkstra";
 
-const GRID_ROWS = 20;
-const GRID_COLS = 40;
 const ANIMATION_SPEEDS = {
   slow: 100,
   normal: 50,
@@ -17,9 +16,8 @@ const ANIMATION_SPEEDS = {
 } as const;
 
 function App() {
-  const [grid, setGrid] = useState<NodeType[][]>(() =>
-    createGrid(GRID_ROWS, GRID_COLS)
-  );
+  const { rows, cols } = getGridSize();
+  const [grid, setGrid] = useState<NodeType[][]>(() => createGrid(rows, cols));
   const [selectedTool, setSelectedTool] = useState<Tool>("wall");
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [speed, setSpeed] = useState<Speed>("normal");
@@ -92,7 +90,7 @@ function App() {
     );
   };
   const clearGrid = () => {
-    setGrid(createGrid(GRID_ROWS, GRID_COLS));
+    setGrid(createGrid(rows, cols));
   };
 
   const updateNodeState = (

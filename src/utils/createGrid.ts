@@ -17,10 +17,9 @@ export const createGrid = (rows: number, cols: number) => {
       });
     }
     grid.push(currentRow);
-    console.log({ currentRow });
   }
   grid[5][5].isStart = true;
-  grid[5][27].isEnd = true;
+  grid[15][15].isEnd = true;
 
   return grid;
 };
