@@ -57,7 +57,7 @@ export const Grid = ({ grid, onClick, selectedTool }: GridProps) => {
 
   const handleMouseDown = (e: React.MouseEvent, row: number, col: number) => {
     e.preventDefault();
-    if (selectedTool === "wall") {
+    if (selectedTool === "wall" || selectedTool === "forest") {
       setIsMouseDown(true);
       onClick(row, col);
     }
