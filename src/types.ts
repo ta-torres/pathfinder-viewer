@@ -9,6 +9,6 @@ export type NodeType = {
   weight: number;
 };
 
-export type Algorithm = "bfs" | "dfs" | "dijkstra";
+export type Algorithm = "bfs" | "dfs" | "dijkstra" | "aStar";
 export type Tool = "wall" | "start" | "end" | "forest" | "maze";
 export type Speed = "slow" | "normal" | "fast";

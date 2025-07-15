@@ -8,6 +8,7 @@ import { createGrid } from "./utils/createGrid";
 import { bfs } from "./utils/bfs";
 import { dfs } from "./utils/dfs";
 import { dijkstra } from "./utils/dijkstra";
+import { aStar } from "./utils/aStar";
 
 const ANIMATION_SPEEDS = {
   slow: 100,
@@ -26,6 +27,7 @@ function App() {
     bfs,
     dfs,
     dijkstra,
+    aStar,
   };
 
   const runAlgorithm = async (algorithmName: Algorithm) => {

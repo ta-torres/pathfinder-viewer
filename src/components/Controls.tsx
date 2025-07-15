@@ -121,6 +121,9 @@ export const Controls = ({
                   <DropdownMenuItem onSelect={() => runAlgorithm("dijkstra")}>
                     Dijkstra's
                   </DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => runAlgorithm("aStar")}>
+                    A*
+                  </DropdownMenuItem>
                   <DropdownMenuGroup>
                     <DropdownMenuLabel className="text-xs font-semibold">
                       Unweighted Algorithms
