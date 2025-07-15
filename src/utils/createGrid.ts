@@ -19,7 +19,7 @@ export const createGrid = (rows: number, cols: number) => {
     grid.push(currentRow);
   }
   grid[5][5].isStart = true;
-  grid[15][15].isEnd = true;
+  grid[11][11].isEnd = true;
 
   return grid;
 };
