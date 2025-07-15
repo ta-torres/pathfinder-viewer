@@ -180,13 +180,13 @@ function App() {
   };
 
   return (
-    <div className="bg-flexoki-light-bg-2 py-8 px-4">
-      <div className="max-w-6xl space-y-8">
+    <div className="bg-flexoki-light-bg-2 py-4 sm:py-8">
+      <div className="max-w-6xl mx-auto space-y-4 sm:space-y-8">
         <header className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
             Pathfinding Visualizer
           </h1>
-          <p className="text-gray-600">
+          <p className="text-sm sm:text-base text-gray-600">
             Visualize pathfinding algorithms through an interactive grid
           </p>
         </header>
